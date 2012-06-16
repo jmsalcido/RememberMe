@@ -1,5 +1,5 @@
 /*
- * DatabaseAdapter.java:
+ * NoteDatabaseAdapter.java:
  * Thursday 07 June 2012
  * Remember Me is a notepad that will remember the notes
  * when you are near a location.
@@ -7,9 +7,6 @@
  * Coded by Jose Miguel Salcido (jms)
  */
 package org.otfusion.android.rememberme.database;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.otfusion.android.rememberme.domain.Note;
 

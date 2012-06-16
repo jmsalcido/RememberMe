@@ -1,3 +1,11 @@
+/*
+ * Note.java:
+ * Saturday 16 June 2012
+ * Remember Me is a notepad that will remember the notes
+ * when you are near a location.
+ * 
+ * Coded by Jose Miguel Salcido (jms)
+ */
 package org.otfusion.android.rememberme.domain;
 
 import android.text.format.Time;

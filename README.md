@@ -8,4 +8,4 @@ Just Remember Me, an Android Application for those who forget to grab the milk i
 
 Another Good Android Application: AGAA - Reminder.
 
-This is for you M.
+This is for you.

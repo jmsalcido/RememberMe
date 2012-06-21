@@ -35,8 +35,19 @@ public class Note {
         this.mPlace = null;
     }
     
+    public Note(long id) {
+        this.mId = id;
+    }
+    
+    public Note(long id, String title) {
+        this.mId = id;
+        this.mTitle = title;
+        this.mTime = new Time();
+    }
+    
     public Note(String title) {
         this.mTitle = title;
+        this.mTime = new Time();
     }
     
     public Note(String title, String body) {
@@ -50,7 +61,27 @@ public class Note {
         this.mBody = body;
         this.mTime = new Time();
         this.mPlace = place;
-        
+    }
+    
+    public Note(String title, String body, Time time) {
+        this.mTitle = title;
+        this.mBody = body;
+        this.mTime = time;
+    }
+    
+    public Note(long id, String title, String body, Time time) {
+        this.mId = id;
+        this.mTitle = title;
+        this.mBody = body;
+        this.mTime = time;
+    }
+    
+    public Note(long id, String title, String body, Time time, Place place) {
+        this.mId = id;
+        this.mTitle = title;
+        this.mBody = body;
+        this.mTime = time;
+        this.mPlace = place;
     }
     
     //id
@@ -86,6 +117,11 @@ public class Note {
     public void setTime(Time time) {
         this.mTime = time;
     }
+    
+    public void setTime(long time) {
+        mTime.set(time);
+    }
+    
     //location
     public Place getLocation() {
         return mPlace;

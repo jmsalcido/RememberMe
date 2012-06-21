@@ -17,7 +17,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Helper class for database connections in the Notes table.
+ * Adapter class for database connections in the Notes table.
  * @author jms
  */
 public class NoteDatabaseAdapter extends DatabaseAdapter {
@@ -35,7 +35,7 @@ public class NoteDatabaseAdapter extends DatabaseAdapter {
             Note.DB_KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             Note.DB_KEY_TITLE + " TEXT NOT NULL," +
             Note.DB_KEY_BODY + " TEXT NOT NULL," +
-            Note.DB_KEY_TIME + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"; // I WILL NOT ADD PLACES YET.
+            Note.DB_KEY_TIME + " INTEGER NOT NULL DEFAULT (strftime('%s','now')));"; // I WILL NOT ADD PLACES YET.
             //"place INTEGER NOT NULL);";  // I WILL NOT ADD PLACES YET.
     
     // TODO Move to PlaceDatabaseAdapter.java
@@ -83,12 +83,12 @@ public class NoteDatabaseAdapter extends DatabaseAdapter {
      * @param note
      * @return
      */
-    public long insert(Note note) {
+    private long insertNote(Note note) {
         ContentValues noteValues = new ContentValues();
         //noteValues.put(Note.DB_KEY_ROWID_NOTE, note.getId());
         noteValues.put(Note.DB_KEY_TITLE, note.getTitle());
         noteValues.put(Note.DB_KEY_BODY, note.getBody());
-        noteValues.put(Note.DB_KEY_TIME, note.getTime().toString());
+        noteValues.put(Note.DB_KEY_TIME, note.getTime().toMillis(true));
         return mDb.insert(DATABASE_TABLE, null, noteValues);
     }
     
@@ -97,9 +97,34 @@ public class NoteDatabaseAdapter extends DatabaseAdapter {
      * @param note
      * @return
      */
-    public boolean delete(Note note) {
+    private boolean deleteNote(Note note) {
         String whereClause = Note.DB_KEY_ROWID + "=" + note.getId();
         return mDb.delete(DATABASE_TABLE, whereClause, null) > 0;
+    }
+    
+    /**
+     * Overrides insert abstract method from DatabaseAdapter
+     */
+    @Override
+    public long insert(Object object) {
+        return insertNote((Note) object);
+    }
+
+    /**
+     * Overrides delete abstract method from DatabaseAdapter
+     */
+    @Override
+    public boolean delete(Object object) {
+        return deleteNote((Note) object);
+    }
+
+    /**
+     * Overrides update abstract method from DatabaseAdapter
+     */
+    @Override
+    public long update(Object object) {
+        // TODO Auto-generated method stub
+        return 0;
     }
     
     /**
@@ -116,6 +141,14 @@ public class NoteDatabaseAdapter extends DatabaseAdapter {
         };
         // table, columns, selection, args, groupby, having, orderby
         return mDb.query(DATABASE_TABLE, projection, null, null, null, null, null);
+    }
+    
+    /**
+     * Overrides fetchAll abstract method from DatabaseAdapter
+     */
+    @Override
+    public Cursor fetchAll() {
+        return fetchAllNotes();
     }
     
     /**
@@ -143,12 +176,10 @@ public class NoteDatabaseAdapter extends DatabaseAdapter {
                             "<strong>Remember Me</strong>";
             
             Note note = new Note();
-            note.setId(1);
             note.setTitle(first_title);
             note.setBody(first_body);
             
             ContentValues values = new ContentValues();
-            values.put(Note.DB_KEY_ROWID, note.getId());
             values.put(Note.DB_KEY_TITLE, note.getTitle());
             values.put(Note.DB_KEY_BODY, note.getBody());
             
@@ -175,5 +206,4 @@ public class NoteDatabaseAdapter extends DatabaseAdapter {
         }
         
     }
-    
 }

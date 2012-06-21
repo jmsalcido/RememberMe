@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+notepad.xml:
+Wednesday 20 June 2012
+Remember Me is a notepad that will remember the notes
+when you are near a location.
+
+Coded by Jose Miguel Salcido (jms)-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+    
+    <!-- Header -->
+    <!-- Orange gradient for the background, lets make a "notepad" -->
+    <TextView android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:text="@string/app_name"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:background="@drawable/notepad_top_background"
+        android:drawableLeft="@drawable/app_notes"/>
+    
+    <!-- Border between the note list and the header -->
+    <View android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000000"/>
+    
+    <!-- Note list divider should be "blue" or something like that -->
+    <ListView android:id="@+id/notepad_note_list"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:listSelector="@drawable/list_selector"
+        android:background="#FFFFFF"
+        android:cacheColorHint="#FFFFFF"
+        android:drawSelectorOnTop="false"
+        android:divider="#33B5E5"
+        android:dividerHeight="1dp"
+        android:layout_weight="1">
+    </ListView>
+    
+    <!-- Menu - Add it onCreateOptionsMenu or here -->
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:background="@android:color/black"
+        android:orientation="horizontal">
+    </LinearLayout>
+
+</LinearLayout>

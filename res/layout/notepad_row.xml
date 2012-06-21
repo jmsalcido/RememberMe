@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@android:color/transparent">
+    
+    <!-- Change for LinearLayout if I change my mind in the future -->
+    <View android:layout_width="40dp"
+        android:layout_height="fill_parent"/>
+    
+    <!-- First line hack -->
+    <View android:layout_width="1dp"
+        android:layout_height="fill_parent"
+        android:background="#33B5E5"/>
+    
+    <!-- Whitespace hax, yeah... sure -->
+    <View android:layout_width="2dp"
+        android:layout_height="fill_parent"/>
+    
+    <!-- Second line hack -->
+    <View android:layout_width="1dp"
+        android:layout_height="fill_parent"
+        android:background="#33B5E5"/>
+    
+    <!-- Note title -->
+    <TextView android:id="@+id/notepad_row_note_title"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:textSize="16dp"
+        android:text="@string/stub_string"
+        android:textColor="@android:color/black"/>
+    
+</LinearLayout>

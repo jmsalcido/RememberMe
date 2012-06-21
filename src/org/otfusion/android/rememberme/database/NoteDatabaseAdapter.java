@@ -34,7 +34,7 @@ public class NoteDatabaseAdapter extends DatabaseAdapter {
             "CREATE TABLE " + DATABASE_TABLE + "(" +
             Note.DB_KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             Note.DB_KEY_TITLE + " TEXT NOT NULL," +
-            Note.DB_KEY_BODY + " TEXT NOT NULL," +
+            Note.DB_KEY_BODY + " TEXT," +
             Note.DB_KEY_TIME + " INTEGER NOT NULL DEFAULT (strftime('%s','now')));"; // I WILL NOT ADD PLACES YET.
             //"place INTEGER NOT NULL);";  // I WILL NOT ADD PLACES YET.
     
@@ -81,7 +81,7 @@ public class NoteDatabaseAdapter extends DatabaseAdapter {
     /**
      * Insert a Note in the database
      * @param note
-     * @return
+     * @return id of the note inserted
      */
     private long insertNote(Note note) {
         ContentValues noteValues = new ContentValues();
@@ -90,6 +90,25 @@ public class NoteDatabaseAdapter extends DatabaseAdapter {
         noteValues.put(Note.DB_KEY_BODY, note.getBody());
         noteValues.put(Note.DB_KEY_TIME, note.getTime().toMillis(true));
         return mDb.insert(DATABASE_TABLE, null, noteValues);
+    }
+
+    /**
+     * Update a note from the database (referenced by Id?) // Thanks ArkoldThos (@david_barreda) for watching this :* this method is for you!
+     * @return id of the note updated
+     */ 
+    // TODO test this method
+    private long updateNote(Note note) {
+        long id = note.getId();
+
+        ContentValues noteValues = new ContentValues();
+        noteValues.put(Note.DB_KEY_TITLE, note.getTitle());
+        noteValues.put(Note.DB_KEY_BODY, note.getBody());
+        noteValues.put(Note.DB_KEY_TIME, note.getBody());
+
+        String whereClause = Note.DB_KEY_ID + " = ?";
+        String whereArgs = new String[] { String.valueOf(id) };
+
+        return mDb.update(DATABASE_TABLE, noteValues, whereClause, whereArgs);
     }
     
     /**
@@ -123,8 +142,8 @@ public class NoteDatabaseAdapter extends DatabaseAdapter {
      */
     @Override
     public long update(Object object) {
-        // TODO Auto-generated method stub
-        return 0;
+        // TODO update notes
+        return updateNote((Note) object);
     }
     
     /**
@@ -152,7 +171,7 @@ public class NoteDatabaseAdapter extends DatabaseAdapter {
     }
     
     /**
-     * DatabaseHelper local class for the conecction
+     * DatabaseHelper local class for the conection
      * @author jms
      */
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -173,7 +192,7 @@ public class NoteDatabaseAdapter extends DatabaseAdapter {
             String first_title = "First Note in Remember Me";
             String first_body =
                     "This is your first note on " +
-                            "<strong>Remember Me</strong>";
+                            "<strong>Remember Me</strong>"; // HTML tags used why? i dont know
             
             Note note = new Note();
             note.setTitle(first_title);
@@ -202,7 +221,7 @@ public class NoteDatabaseAdapter extends DatabaseAdapter {
          */
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            // TODO helpalots ??
+            // TODO upgradeable table and shit.
         }
         
     }
